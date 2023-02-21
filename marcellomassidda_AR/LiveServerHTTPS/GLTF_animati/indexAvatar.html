@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+  </head>
+  <body>
+     <!--CAMERA-->
+     
+     
+    <!--SI APRE LA SCENA-->
+    <a-scene>
+        <a-asset-item
+            id="myAvatar"
+            src="/GLTF_animati/Avatar/myAnimatedAvatar/myAvatar.gltf ">
+        </a-asset-item>
+
+        
+        <a-asset-item
+        id="myWarrior"
+        src="/GLTF_animati/WarriorAvatar/myAnimatedWarrior/warrior.gltf">
+        </a-asset-item>
+
+        <a-camera webar-camera  cursor="rayOrigin: mouse; fuse: false" ></a-camera>
+        <!-- onclick="AnimationController('Avatar','capoeira')" -->
+        <a-gltf-model
+             id="Avatar"
+             src="#myAvatar"
+             scale="1 1 1" position="-4 0 0"
+             animation-mixer="clip:none;"
+        >
+        <a-box onclick="AnimationController('Avatar','capoeira')" scale="2 2 2" position="0 1 0" opacity="0" color="red"></a-box>
+        
+    </a-gltf-model>
+    <!-- onclick="AnimationController('Warrior','Kick')" -->
+        <a-gltf-model
+        
+             id="Warrior" 
+             src="#myWarrior"
+             scale="1 1 1"
+             animation-mixer="clip:none;"
+             >
+             <a-box onclick="AnimationController('Warrior','Kick')" scale="2 2 2" position="0 1 0" opacity="0" color="red"></a-box>
+        
+        </a-gltf-model>
+    </a-scene>
+    <script>
+        function AnimationController(entityId, nameClip)
+        {
+            var _myAnimation = document.getElementById(entityId);
+            var animationData = _myAnimation.getAttribute("animation-mixer");
+
+            if(animationData.clip=="none")
+            {
+                _myAnimation.setAttribute("animation-mixer","clip: "+ nameClip +"; crossFadeDuration: .6; loop:true;");
+            }
+            else {
+                _myAnimation.setAttribute("animation-mixer","clip:none; crossFadeDuration: .6; loop:true;");
+            }
+        }
+    </script> 
+      
+       </body>
+</html>

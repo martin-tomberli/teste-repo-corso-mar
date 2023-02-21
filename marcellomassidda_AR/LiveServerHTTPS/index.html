@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
+    
+    <!-- <script src="https://webar-sdk.blippar.com/releases/1.4.7/webar-sdk-v1.4.7.min.js"
+    webar-mode="marker-tracking"
+    auto-init="true"
+    auto-start="true"
+    ></script> 
+   -->
+  </head>
+  <body>
+    <!--SI APRE LA SCENA-->
+    <a-scene
+      webar-scene="key: a1667354-f4cd-4b9d-85fb-236dc252a8f6"
+      vr-mode-ui="enabled: false"
+      device-orientation-permission-ui="enabled: false"
+      loading-screen="enabled: false">
+      <!--CAMERA-->
+      <a-camera webar-camera></a-camera>
+<!--INSERISCO GLI ASSETS-->
+
+      <a-assets>
+        <a-asset-item id="uomo_carne" src="/modelli3D/Uomo_carne/UOMO_CARNE/scene.gltf"></a-asset-item>
+        <a-asset-item id="Lava" src="/modelli3D/Lava/Lava/scene.gltf"></a-asset-item>
+      </a-assets>
+
+      <!-- <a-entity webar-stage> -->
+
+        <!-- <a-entity webar-marker="id: f6c589c8-3b69-45e2-bd2b-b9fa134d9d57"> -->
+          <a-entity webar-stage>
+          <a-entity look-at="[camera]" id="uomo_carne" gltf-model="#uomo_carne"position="3.304 0.227 0"rotation="0 0 0" scale="0.500 0.500  0.500"></a-entity>
+          <a-entity look-at="[camera]" id="Lava" gltf-model="#Lava"position="0 14 0"rotation="0 0 0" scale="0.0100 0.0100 0.0100"></a-entity>
+          <a-text look-at="[camera]" id="myLabel"position="0 4.152 0"rotation="0 270 0"scale="5.000 5.000 5.000" value= "io sono Meat Boy"; color="black"; align:center;></a-text>
+
+        </a-entity>
+
+        
+     <!--<a-gltf-model src="#uomo_carne"></a-gltf-model>-->
+
+<!--Label-->
+
+<!--PULSANTE per ATTIVARE/DISATTIVARE la label-->
+<button onclick="SwitchLabel()" id="myButton">NASCONDI INFORMAZIONI</button>
+
+
+
+<!--Chiusura della scena-->
+</a-scene>
+<!--style del button-->
+<style>
+  #myButton
+  {
+    z-index: 3;
+    position: absolute;
+    bottom: 10px;
+    background-color: rgb(255, 255, 255);
+    padding: 0.3rem; /*Il pulsante inizialmente deve essere nascosto*/
+    display: none;
+  }
+</style>
+
+<!--TAG SCRIPT che contiene la mia funzione-->
+<script>
+
+//Funzione che mostra il pulsante
+function ShowButton()
+{
+    document.getElementById("myButton").style.display="block";
+}
+
+//Hook di blippar che ci dice che il WEBAR STAGE è pronto:
+//Passandogli il nome della funzione che voglio scrivere verrà chiamata
+WEBARSDK.SetStageReadyCallback(ShowButton);
+
+
+function SwitchLabel()
+{
+  //Trovo la mia label
+  var _myLabel = document.getElementById("myLabel")
+  //Controllo qual è il valore attuale della proprietà visibile
+  var _currentVisibility = _myLabel.getAttribute("visible")
+
+  if(_currentVisibility == true) //controllo la condizione
+  {
+    //La mia label è accesa, quindi se ho premuto il pulsante vorrei spengerla
+    _myLabel.setAttribute("visible","false");
+    //Cambio il testo del mio pulsante:
+  }
+  else
+  {
+	//La luce è SPENTA, quindi se ho premuto il pulsante vorrei Accenderla!
+    _myLabel.setAttribute("visible","true");
+  }
+
+}
+
+</script>
+
+     
+   
+  </body>
+</html>
